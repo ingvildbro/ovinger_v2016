@@ -1,0 +1,63 @@
+/*
+Øving 1, V2016
+Klient meny
+*/
+
+import static javax.swing.JOptionPane.*;
+
+class MenyKlient{
+	public static void main(String[] args){
+		
+		Restaurant restaurant = new Restaurant("Egon", 1948, 80);
+		int valg;
+		String [] alt = {"Reserver bord", "Finn reserverte bord", "Frigi bord"};
+		
+		final int RES_BORD = 0;
+		final int FINN_BORD = 1;
+		final int FRIGI_BORD = 2;
+		final int AVSLUTT = 3;
+		
+		do {     
+			valg = showOptionDialog(null,
+									"Velg",
+									"Bordreservasjon",
+									YES_NO_OPTION,
+									INFORMATION_MESSAGE,
+									null,
+									alt,
+									alt[0]);
+		    switch (valg) {
+		        case RES_BORD: 
+					//Leser inn navn og antall bord
+					String navn = showInputDialog("Navn på reservasjon");
+					int antBord = Integer.parseInt(showInputDialog("Antall bord som skal reserveres"));
+					restaurant.reservereBord(navn, antBord);
+					//showMessageDialog(null, "OK" + navn);
+					break;
+					
+		        case FINN_BORD:
+					//Finner alle bordene som er reservert på et bestemt navn
+					String reservNavn = showInputDialog("Navnet bordet er reservert på");
+					int[] reserverteBord = restaurant.finnBordReservert(reservNavn);
+					restaurant.finnBordReservert(reservNavn);
+					showMessageDialog(null, reserverteBord);
+					break;
+					
+		        case FRIGI_BORD:
+					// frigi en rekke bord, bordnummer er gitt
+					int nrBordRyddet = Integer.parseInt(showInputDialog("Frigi bord:"));
+					int[] bord = new int[nrBordRyddet];
+					//restaurant.frigir(bordRyddet);
+					for(int i = 0; i < bord.length; i++){
+						bord[i] = Integer.parseInt(showInputDialog("Bordnr:"));
+					}
+					restaurant.frigir(bord);
+					break;
+					
+		        case AVSLUTT:
+					break;
+					
+			}//switch()
+		} while (valg != -1);
+	}//main
+}//class
